@@ -32,7 +32,8 @@ const getBlogs = (req, res) => {
     if(blogs.length === 0){
         return res.status(404).json({message: "No tienes blogs, crea uno"})
     }
-    res.status(200).json(blogs)
+    //res.status(200).json(blogs)
+    res.render("index", {blogs})
 }
 
 const getBlogById = (req, res) => {
@@ -112,4 +113,5 @@ export default {
     postBlog,
     updateBlog,
     deleteBlog
+
 }
