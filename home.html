@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blogify - Replica</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* --- VARIABLES Y RESET --- */
+        :root {
+            --primary-bg: #F3F0FF;
+            /* Lila muy suave */
+            --accent-purple: #E0D9FF;
+            --text-dark: #111111;
+            --text-gray: #666666;
+            --white: #FFFFFF;
+            --black: #000000;
+            --radius-card: 24px;
+            --radius-btn: 50px;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(180deg, #F9F7FF 0%, #FFFFFF 100%);
+            color: var(--text-dark);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .btn-contact {
+            background-color: var(--black);
+            color: var(--white);
+            padding: 0.7rem 1.5rem;
+            border-radius: var(--radius-btn);
+            text-decoration: none;
+            font-weight: 500;
+            transition: transform 0.2s;
+        }
+
+        .btn-contact:hover {
+            transform: scale(1.05);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            text-align: center;
+            padding: 4rem 1rem;
+            position: relative;
+            background: radial-gradient(circle at 50% 50%, var(--accent-purple) 0%, transparent 60%);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 3rem;
+            color: var(--black);
+        }
+
+        /* Newsletter Card */
+        .newsletter-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: var(--radius-card);
+            box-shadow: var(--shadow);
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        .newsletter-card h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .newsletter-card p {
+            color: var(--text-gray);
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group {
+            display: flex;
+            background: #F5F5F5;
+            padding: 0.3rem;
+            border-radius: var(--radius-btn);
+        }
+
+        .input-group input {
+            border: none;
+            background: transparent;
+            padding: 0.8rem 1rem;
+            flex-grow: 1;
+            outline: none;
+        }
+
+        .input-group button {
+            background: var(--black);
+            color: var(--white);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: var(--radius-btn);
+            cursor: pointer;
+        }
+
+        /* Floating Bubbles Decoration */
+        .bubble {
+            position: absolute;
+            background: var(--white);
+            padding: 1rem 1.5rem;
+            border-radius: 50%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Posiciones aproximadas basadas en la imagen */
+        .b-1 {
+            top: 20%;
+            left: 10%;
+        }
+
+        .b-2 {
+            top: 40%;
+            left: 15%;
+            animation-delay: 1s;
+        }
+
+        .b-3 {
+            top: 60%;
+            left: 20%;
+            animation-delay: 2s;
+        }
+
+        .b-4 {
+            top: 20%;
+            right: 10%;
+        }
+
+        .b-5 {
+            top: 40%;
+            right: 15%;
+            animation-delay: 1.5s;
+        }
+
+        .b-6 {
+            top: 60%;
+            right: 20%;
+            animation-delay: 2.5s;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        /* --- CONTENT AREA --- */
+        .container {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        /* Featured Article */
+        .featured-article {
+            display: flex;
+            gap: 2rem;
+            background: transparent;
+            margin-bottom: 4rem;
+            align-items: center;
+        }
+
+        .featured-img-wrapper {
+            flex: 1;
+            height: 400px;
+            border-radius: var(--radius-card);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .featured-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .featured-content {
+            flex: 1;
+        }
+
+        .featured-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .featured-content p {
+            color: var(--text-gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-gray);
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        .btn-read {
+            background: var(--black);
+            color: var(--white);
+            padding: 0.8rem 2rem;
+            border-radius: var(--radius-btn);
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.9rem;
+        }
+
+        /* Grid Layout */
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: transparent;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .card-img {
+            height: 250px;
+            border-radius: var(--radius-card);
+            background: #ddd;
+            overflow: hidden;
+        }
+
+        .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .card:hover .card-img img {
+            transform: scale(1.05);
+        }
+
+        .card-content h4 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-meta {
+            font-size: 0.8rem;
+            color: var(--text-gray);
+            margin-bottom: 1rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .card-btn {
+            border: 1px solid #ddd;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-btn);
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 0.8rem;
+            align-self: flex-start;
+            transition: all 0.2s;
+        }
+
+        .card-btn:hover {
+            background: var(--black);
+            color: var(--white);
+            border-color: var(--black);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .featured-article {
+                flex-direction: column;
+            }
+
+            .featured-img-wrapper {
+                width: 100%;
+                height: 300px;
+            }
+
+            .bubble {
+                display: none;
+            }
+
+            /* Ocultar burbujas en móvil */
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+        }
+    </style>
+
+    
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">Blogify.</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Articles</a></li>
+            <li><a href="#">Categories</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Pages ▾</a></li>
+        </ul>
+        <a href="#" class="btn-contact">Contact →</a>
+    </nav>
+
+    <header class="hero">
+        <div class="bubble b-1">AI Tool</div>
+        <div class="bubble b-2">Technology</div>
+        <div class="bubble b-3">Foods</div>
+        <div class="bubble b-4">Play</div>
+        <div class="bubble b-5">AI Intelligence</div>
+        <div class="bubble b-6">Lifestyle</div>
+
+        <h1>Discover Latest<br>Articles</h1>
+
+        <div class="newsletter-card">
+            <h3>Subscribe Our Weekly Newsletter</h3>
+            <p>Regular updates ensure that readers have access to fresh perspectives.</p>
+            <form class="input-group" onsubmit="event.preventDefault(); alert('Subscribed!');">
+                <input type="email" placeholder="Email address">
+                <button type="submit">Submit →</button>
+            </form>
+        </div>
+    </header>
+
+    <main class="container">
+        <div id="featured-container"></div>
+
+        <div id="grid-container" class="articles-grid"></div>
+    </main>
+
+    <script>
+        // URL de tu API Node.js/Express
+        // CAMBIAR ESTO POR LA URL REAL DE TU SERVIDOR, EJ: 'http://localhost:3000/api/posts'
+        const API_URL = '/api/posts';
+
+        // --- MODO DE PRUEBA (MOCK DATA) ---
+        // Como no tengo acceso a tu servidor local, usaré los datos JSON que me diste
+        // para simular la respuesta. Pon 'false' si quieres usar el fetch real.
+        const USE_MOCK_DATA = true;
+
+        const mockData = [
+            { "id": 1, "title": "El avance de la Inteligencia Artificial en 2024", "content": "La IA continúa transformando industrias enteras, desde la medicina hasta las finanzas.", "category": "Tecnología", "date": "2024-01-15", "author": "Admin" },
+            { "id": 2, "title": "Nuevas tendencias en dietas saludables", "content": "Expertos recomiendan un enfoque más balanceado y menos restrictivo para este año.", "category": "Salud", "date": "2024-01-16", "author": "Nutricionista" },
+            { "id": 3, "title": "Resultados de la última jornada de fútbol", "content": "Los equipos locales dominaron la tabla de posiciones en un fin de semana lleno de goles.", "category": "Deportes", "date": "2024-01-17", "author": "Deportes Hoy" },
+            { "id": 4, "title": "Estreno mundial de la esperada secuela de ciencia ficción", "content": "La crítica aclama la cinematografía y los efectos especiales de la nueva entrega.", "category": "Entretenimiento", "date": "2024-01-18", "author": "CineFan" },
+            { "id": 5, "title": "Descubrimiento de agua en un nuevo exoplaneta", "content": "Telescopios espaciales detectan señales claras de vapor de agua en la atmósfera de K2-18b.", "category": "Ciencia", "date": "2024-01-19", "author": "AstroNoticias" },
+            { "id": 6, "title": "El mercado de criptomonedas muestra signos de recuperación", "content": "Bitcoin y Ethereum lideran el repunte tras meses de volatilidad extrema.", "category": "Negocios", "date": "2024-01-20", "author": "Economista" },
+            { "id": "2404cdd4", "title": "Novedades Crypto", "content": "La plataforma de criptomonedas Crypto.com está buscando contratar a un comerciante cuantitativo.", "category": "Criptomonedas", "date": "2024-02-05", "author": "Carlso" }
+        ];
+
+        // Función para obtener imágenes aleatorias basadas en categoría (para simular la estética visual)
+        function getImageForCategory(category) {
+            const keywords = {
+                'Tecnología': 'technology',
+                'Salud': 'healthy-food',
+                'Deportes': 'sports',
+                'Entretenimiento': 'cinema',
+                'Ciencia': 'space',
+                'Negocios': 'finance',
+                'Viajes': 'travel',
+                'Gastronomía': 'cooking',
+                'Medio Ambiente': 'nature'
+            };
+            const keyword = keywords[category] || 'abstract';
+            return `https://source.unsplash.com/800x600/?${keyword},3d-render`;
+        }
+
+        // Utilizo una API de placeholder de imágenes más estable por si unsplash falla
+        function getStableImage(id) {
+            return `https://picsum.photos/seed/${id}/800/600`;
+        }
+
+        async function fetchArticles() {
+            try {
+                let articles;
+
+                if (USE_MOCK_DATA) {
+                    // Simular retraso de red
+                    articles = mockData;
+                } else {
+                    // CÓDIGO AJAX REAL
+                    const response = await fetch(API_URL);
+                    if (!response.ok) throw new Error('Error en la red');
+                    articles = await response.json();
+                }
+
+                renderArticles(articles);
+
+            } catch (error) {
+                console.error('Error fetching articles:', error);
+                document.getElementById('grid-container').innerHTML = '<p>Error cargando artículos. Asegúrate de que el servidor esté corriendo.</p>';
+            }
+        }
+
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString('es-ES', options);
+        }
+
+        function renderArticles(articles) {
+            const featuredContainer = document.getElementById('featured-container');
+            const gridContainer = document.getElementById('grid-container');
+
+            // Separar el destacado (el último o el primero)
+            // En el diseño, el destacado es grande. Usaremos el primer elemento como destacado.
+            const featured = articles[0];
+            const rest = articles.slice(1, 7); // Tomamos los siguientes 6 para la grilla
+
+            // 1. Renderizar Featured
+            if (featured) {
+                featuredContainer.innerHTML = `
+                    <article class="featured-article">
+                        <div class="featured-img-wrapper">
+                            <img src="${getStableImage(featured.id + 'feat')}" alt="${featured.title}">
+                        </div>
+                        <div class="featured-content">
+                            <h2>${featured.title}</h2>
+                            <p>${featured.content}</p>
+                            <div class="meta">
+                                <span>👤 ${featured.author}</span>
+                                <span>📅 ${formatDate(featured.date)}</span>
+                                <span>⏱️ 5 min read</span>
+                            </div>
+                            <a href="#" class="btn-read">Read more →</a>
+                        </div>
+                    </article>
+                `;
+            }
+
+            // 2. Renderizar Grid
+            gridContainer.innerHTML = rest.map(item => `
+                <article class="card">
+                    <div class="card-img">
+                        <img src="${getStableImage(item.id)}" alt="${item.title}">
+                    </div>
+                    <div class="card-content">
+                        <h4>${item.title}</h4>
+                        <div class="card-meta">
+                            <span>📅 ${formatDate(item.date)}</span>
+                            <span>⏱️ 3 min</span>
+                        </div>
+                        <a href="#" class="card-btn">Read more →</a>
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        // Iniciar
+        document.addEventListener('DOMContentLoaded', fetchArticles);
+    </script>
+</body>
+
+</html>
