@@ -4,7 +4,7 @@ const blog = zod.object({
         title: zod.string({
             required_error: "El titulo es requerido",
             invalid_type_error: "El titulo debe ser una cadena de texto"
-        }).min(3).max(50),
+        }).min(3).max(100),
         content: zod.string({
             required_error: "El contenido es requerido",
             invalid_type_error: "El contenido debe ser una cadena de texto"
@@ -13,7 +13,7 @@ const blog = zod.object({
             required_error: "La categoria es requerida",
             invalid_type_error: "La categoria debe ser una cadena de texto"
         }).min(3).max(50),
-        date: zod.preprocess((arg) => {
+        post_date: zod.preprocess((arg) => {
             if (typeof arg === "string" || typeof arg === "number") {
                 const d = new Date(arg)
                 return isNaN(d.getTime()) ? arg : d
